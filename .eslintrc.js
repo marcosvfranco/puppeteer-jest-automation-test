@@ -5,9 +5,6 @@ module.exports = {
         'es6': true,
         'jest' :true,
     },
-    "plugins": [
-        "mocha"
-    ],
     'extends': ['eslint:recommended'],
     'globals': {
         'Atomics': 'readonly',
