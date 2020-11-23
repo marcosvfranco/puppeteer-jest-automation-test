@@ -43,6 +43,7 @@ describe('Testing Trivago website', () => {
     });
 
     test('Sorting by distance', async () => {
+        await page.waitForNavigation();
         await page.waitForSelector(css.selectSort);
         await page.select(css.selectSort, '3');
         await page.waitForSelector(css.secondHotelOption);    
