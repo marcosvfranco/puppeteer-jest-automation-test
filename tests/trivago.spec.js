@@ -1,5 +1,6 @@
 const { Browser } = require('../atom/utils/browserManager');
 const { css } = require('../test_data/trivago/selectors');
+const { safeClick } = require('../atom/elementActions');
 let console = require('console');    
 
 let browser;
@@ -96,8 +97,3 @@ describe('Testing Trivago website', () => {
     });
 
 });
-
-async function safeClick (page, selector) {
-    await page.waitForSelector(selector);
-    await page.click(selector);
-}

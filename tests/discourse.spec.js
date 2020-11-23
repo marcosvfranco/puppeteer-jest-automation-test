@@ -1,5 +1,7 @@
 const { Browser } = require('../atom/utils/browserManager');
 const { css, xpath } = require('../test_data//discourse/selectors');
+const { safeClick } = require('../atom/elementActions');
+const { getCategorySize } = require('../atom/test_functions/discourse_functions');
 let console = require('console');    
 
 let browser;
@@ -23,7 +25,7 @@ describe('Testing Discouse website', () => {
         await initPage.goto('https://www.discourse.org');
         const pageTarget = initPage.target();
 
-        await initPage.click(css.demoLink);
+        await safeClick(initPage, css.demoLink);
         const newTarget = await browser.waitForTarget(target => target.opener() === pageTarget);
 
         page = await newTarget.page();
@@ -87,7 +89,7 @@ describe('Testing Discouse website', () => {
 
         await Promise.all(dataPromisesArray);
 
-        await page.click(css.viewSortButton);
+        await safeClick(page, css.viewSortButton);
         await page.waitForSelector(css.ascendantSortArrow, { visible: true, timeout: 2000 });
 
         const views = await page.evaluate(`
@@ -97,12 +99,3 @@ describe('Testing Discouse website', () => {
         console.log(`Most viewed topic has: ${views} views\n`);
     });
 });
-
-async function getCategorySize (categoryName, page) {
-    let categorySize;
-    categorySize = await page.evaluate(`
-        $("span[class='category-name']:contains(${categoryName})").length
-    `);
-
-    console.log(`Category ${categoryName} has ${categorySize} items`);
-}
