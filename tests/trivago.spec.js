@@ -82,7 +82,7 @@ describe('Testing Trivago website', () => {
 
     test.skip('Getting Accommodation info', async () => {
         // opening location details
-        await page.click(css.secondHotelLocationLink);
+        await safeClick(page, css.secondHotelLocationLink);
 
         // opening accommodation details
         await safeClick(page, css.expandAccommodationDetailsLink);
